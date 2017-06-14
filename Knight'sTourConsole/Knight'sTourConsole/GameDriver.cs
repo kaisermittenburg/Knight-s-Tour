@@ -23,8 +23,12 @@ namespace Knight_sTourConsole
         private void menu()
         {
             resetBoard();
+            DateTime start = DateTime.Now;
             solve();
+            DateTime end = DateTime.Now;
+            TimeSpan span = end.Subtract(start);
             printBoard();
+            Console.WriteLine("Solved in " +span.TotalSeconds);
             char response = ' ';
             Console.WriteLine("Would you like to reset? (y/n)");
             string read = Console.ReadLine();
