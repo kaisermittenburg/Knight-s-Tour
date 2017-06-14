@@ -18,7 +18,7 @@ namespace Knight_s_Tour
 
 		protected override void OnStart ()
 		{
-			// Handle when your app starts
+            Console.WriteLine("Hello World");
 		}
 
 		protected override void OnSleep ()
