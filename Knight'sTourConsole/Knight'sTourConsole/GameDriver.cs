@@ -28,7 +28,10 @@ namespace Knight_sTourConsole
             DateTime end = DateTime.Now;
             TimeSpan span = end.Subtract(start);
             printBoard();
-            Console.WriteLine("Solved in " +span.TotalSeconds);
+            if (span.TotalSeconds > 60)
+                Console.WriteLine("Solved in " + span.TotalMinutes + " minutes");
+            else
+                Console.WriteLine("Solved in " + span.TotalSeconds + " seconds");
             char response = ' ';
             Console.WriteLine("Would you like to reset? (y/n)");
             string read = Console.ReadLine();
