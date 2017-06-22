@@ -6,44 +6,58 @@ namespace Knight_sTourConsole
 {
     public class GameDriver
     {
+		public GameDriver()
+		{
+			board = new Board();
+			Menu();
+		}
+
+        #region Member Variables
         Board board;
-        public GameDriver()
+        #endregion
+
+        #region Private Methods
+        private void ResetBoard()
         {
-            board = new Board();
-            menu();
+            board.NewBoard();
         }
-        private void resetBoard()
+        private void Solve()
         {
-            board.newBoard();
+            board.Solve();
         }
-        private void solve()
+        private void Menu()
         {
-            board.solve();
-        }
-        private void menu()
-        {
-            resetBoard();
+            ResetBoard();
             DateTime start = DateTime.Now;
-            solve();
+            Solve();
             DateTime end = DateTime.Now;
             TimeSpan span = end.Subtract(start);
-            printBoard();
+            PrintBoard();
+            DisplayTimer(span);
+            PlayAgain();
+        }
+        private void PrintBoard()
+        {
+            board.PrintBoard();
+        }
+        private void DisplayTimer(TimeSpan span)
+        {
             if (span.TotalSeconds > 60)
                 Console.WriteLine("Solved in " + span.TotalMinutes + " minutes");
             else
                 Console.WriteLine("Solved in " + span.TotalSeconds + " seconds");
+        }
+        private void PlayAgain()
+        {
             char response = ' ';
             Console.WriteLine("Would you like to reset? (y/n)");
             string read = Console.ReadLine();
             response = read[0];
-            if(response =='y')
+            if (response == 'y')
             {
-                menu();
+                Menu();
             }
         }
-        private void printBoard()
-        {
-            board.printBoard();
-        }
+        #endregion
     }
 }

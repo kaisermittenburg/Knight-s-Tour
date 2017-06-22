@@ -6,6 +6,7 @@ namespace Knight_sTourConsole
 {
     public class Board
     {
+        #region Member Variables
         private int rows;
         private int cols;
         private int startX;
@@ -15,11 +16,13 @@ namespace Knight_sTourConsole
         private int moveCounter;
         private int maxMoves;
         private int[,] board;
+        #endregion
+        #region Public Methods
         public Board()
         {
-               
+
         }
-        public void getDimensions()
+        public void GetDimensions()
         {
             do
             {
@@ -46,7 +49,7 @@ namespace Knight_sTourConsole
             Console.WriteLine();
             Console.WriteLine();
         }
-        public void getXY()
+        public void GetXY()
         {
             do
             {
@@ -73,7 +76,7 @@ namespace Knight_sTourConsole
             Console.WriteLine();
             Console.WriteLine();
         }
-        public void newBoard()
+        public void NewBoard()
         {
             rows = 0;
             cols = 0;
@@ -81,49 +84,49 @@ namespace Knight_sTourConsole
             startY = 0;
             moveCounter = 0;
             maxMoves = 0;
-            getDimensions();
-            getXY();
+            GetDimensions();
+            GetXY();
             maxMoves = (rows * cols) - 1;
-            board = new int[rows,cols];
+            board = new int[rows, cols];
             //set all indices to -1, a default value that is acceptable to reset to
-            for(int i = 0; i < rows; i++)
+            for (int i = 0; i < rows; i++)
             {
-                for(int j = 0; j < cols; j++)
+                for (int j = 0; j < cols; j++)
                 {
                     board[i, j] = -1;
                 }
             }
             //set start space to 0
             board[startX, startY] = 0;
-            
+
         }
-        public bool solve()
+        public bool Solve()
         {
-            knightsTour(board, startX, startY, moveCounter, maxMoves, rows, cols);
+            KnightsTour(board, startX, startY, moveCounter, maxMoves, rows, cols);
             return false;
         }
-        public bool isValid(int[,] board, int curRow, int curCol, int nextRow, int nextCol, int rowBound, int colBound)
+        public bool IsValid(int[,] board, int curRow, int curCol, int nextRow, int nextCol, int rowBound, int colBound)
         {
-            if(nextRow>=0 && nextRow<rowBound && nextCol>=0 && nextCol<colBound && board[nextRow,nextCol] < 0)
+            if (nextRow >= 0 && nextRow < rowBound && nextCol >= 0 && nextCol < colBound && board[nextRow, nextCol] < 0)
             {
                 return true;
             }
             return false;
         }
-        public bool knightsTour(int[,] board, int curRow, int curCol, int moveCounter, int maxMoves, int rowBound, int colBound)
+        public bool KnightsTour(int[,] board, int curRow, int curCol, int moveCounter, int maxMoves, int rowBound, int colBound)
         {
-            if(moveCounter == maxMoves)
+            if (moveCounter == maxMoves)
             {
                 return true;
             }
             //up 2 right 1
             int nextRow = curRow;
             int nextCol = curCol;
-            if(isValid(board, curRow, curCol, nextRow- 2, nextCol + 1, rowBound, colBound))
+            if (IsValid(board, curRow, curCol, nextRow - 2, nextCol + 1, rowBound, colBound))
             {
                 moveCounter++;
-                board[nextRow-2, nextCol+1] = moveCounter;
-                if(knightsTour(board, nextRow-2, nextCol+1, moveCounter, maxMoves, rowBound, colBound))
+                board[nextRow - 2, nextCol + 1] = moveCounter;
+                if (KnightsTour(board, nextRow - 2, nextCol + 1, moveCounter, maxMoves, rowBound, colBound))
                 {
                     return true;
                 }
@@ -131,11 +134,11 @@ namespace Knight_sTourConsole
                 moveCounter--;
             }
             //up 2 left 1
-            if (isValid(board, curRow, curCol, nextRow-2, nextCol-1, rowBound, colBound))
+            if (IsValid(board, curRow, curCol, nextRow - 2, nextCol - 1, rowBound, colBound))
             {
                 moveCounter++;
-                board[nextRow-2, nextCol-1] = moveCounter;
-                if (knightsTour(board, nextRow-2, nextCol-1, moveCounter, maxMoves, rowBound, colBound))
+                board[nextRow - 2, nextCol - 1] = moveCounter;
+                if (KnightsTour(board, nextRow - 2, nextCol - 1, moveCounter, maxMoves, rowBound, colBound))
                 {
                     return true;
                 }
@@ -143,11 +146,11 @@ namespace Knight_sTourConsole
                 moveCounter--;
             }
             //up 1 left 2
-            if (isValid(board, curRow, curCol, nextRow - 1, nextCol - 2, rowBound, colBound))
+            if (IsValid(board, curRow, curCol, nextRow - 1, nextCol - 2, rowBound, colBound))
             {
                 moveCounter++;
                 board[nextRow - 1, nextCol - 2] = moveCounter;
-                if (knightsTour(board, nextRow - 1, nextCol - 2, moveCounter, maxMoves, rowBound, colBound))
+                if (KnightsTour(board, nextRow - 1, nextCol - 2, moveCounter, maxMoves, rowBound, colBound))
                 {
                     return true;
                 }
@@ -155,11 +158,11 @@ namespace Knight_sTourConsole
                 moveCounter--;
             }
             //down 1 left 2
-            if (isValid(board, curRow, curCol, nextRow + 1, nextCol - 2, rowBound, colBound))
+            if (IsValid(board, curRow, curCol, nextRow + 1, nextCol - 2, rowBound, colBound))
             {
                 moveCounter++;
                 board[nextRow + 1, nextCol - 2] = moveCounter;
-                if (knightsTour(board, nextRow +1, nextCol - 2, moveCounter, maxMoves, rowBound, colBound))
+                if (KnightsTour(board, nextRow + 1, nextCol - 2, moveCounter, maxMoves, rowBound, colBound))
                 {
                     return true;
                 }
@@ -167,11 +170,11 @@ namespace Knight_sTourConsole
                 moveCounter--;
             }
             //up 1 right 2
-            if (isValid(board, curRow, curCol, nextRow - 1, nextCol + 2, rowBound, colBound))
+            if (IsValid(board, curRow, curCol, nextRow - 1, nextCol + 2, rowBound, colBound))
             {
                 moveCounter++;
                 board[nextRow - 1, nextCol + 2] = moveCounter;
-                if (knightsTour(board, nextRow - 1, nextCol + 2, moveCounter, maxMoves, rowBound, colBound))
+                if (KnightsTour(board, nextRow - 1, nextCol + 2, moveCounter, maxMoves, rowBound, colBound))
                 {
                     return true;
                 }
@@ -179,11 +182,11 @@ namespace Knight_sTourConsole
                 moveCounter--;
             }
             //down 1 right 2
-            if (isValid(board, curRow, curCol, nextRow + 1, nextCol + 2, rowBound, colBound))
+            if (IsValid(board, curRow, curCol, nextRow + 1, nextCol + 2, rowBound, colBound))
             {
                 moveCounter++;
                 board[nextRow + 1, nextCol + 2] = moveCounter;
-                if (knightsTour(board, nextRow + 1, nextCol + 2, moveCounter, maxMoves, rowBound, colBound))
+                if (KnightsTour(board, nextRow + 1, nextCol + 2, moveCounter, maxMoves, rowBound, colBound))
                 {
                     return true;
                 }
@@ -191,11 +194,11 @@ namespace Knight_sTourConsole
                 moveCounter--;
             }
             //down 2 right 1
-            if (isValid(board, curRow, curCol, nextRow + 2, nextCol + 1, rowBound, colBound))
+            if (IsValid(board, curRow, curCol, nextRow + 2, nextCol + 1, rowBound, colBound))
             {
                 moveCounter++;
                 board[nextRow + 2, nextCol + 1] = moveCounter;
-                if (knightsTour(board, nextRow + 2, nextCol + 1, moveCounter, maxMoves, rowBound, colBound))
+                if (KnightsTour(board, nextRow + 2, nextCol + 1, moveCounter, maxMoves, rowBound, colBound))
                 {
                     return true;
                 }
@@ -203,11 +206,11 @@ namespace Knight_sTourConsole
                 moveCounter--;
             }
             //down 2 left 1
-            if (isValid(board, curRow, curCol, nextRow + 2, nextCol - 1, rowBound, colBound))
+            if (IsValid(board, curRow, curCol, nextRow + 2, nextCol - 1, rowBound, colBound))
             {
                 moveCounter++;
                 board[nextRow + 2, nextCol - 1] = moveCounter;
-                if (knightsTour(board, nextRow + 2, nextCol - 1, moveCounter, maxMoves, rowBound, colBound))
+                if (KnightsTour(board, nextRow + 2, nextCol - 1, moveCounter, maxMoves, rowBound, colBound))
                 {
                     return true;
                 }
@@ -216,17 +219,17 @@ namespace Knight_sTourConsole
             }
             return false;
         }
-        public void printBoard()
+        public void PrintBoard()
         {
-            for(int i = 0; i <rows; i++)
+            for (int i = 0; i < rows; i++)
             {
                 for (int j = 0; j < cols; j++)
                 {
-                    if(board[i,j] == -1)
+                    if (board[i, j] == -1)
                     {
                         Console.Write("[ X]");
                     }
-                    else if(board[i,j] < 10)
+                    else if (board[i, j] < 10)
                     {
                         Console.Write("[ ");
                         Console.Write(board[i, j]);
@@ -243,5 +246,6 @@ namespace Knight_sTourConsole
             }
             Console.WriteLine();
         }
+        #endregion
     }
 }
